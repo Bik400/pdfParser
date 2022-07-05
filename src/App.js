@@ -2,7 +2,7 @@ import FileUpload from "./components/FileUpload.js";
 
 function App() {
   return (
-    <div>
+    <div className="container mt-4">
       <FileUpload/>
     </div>
   )
