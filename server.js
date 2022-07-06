@@ -2,10 +2,15 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
 
+const fs = require('fs');   // file module
+
 const app = express();
 
 app.use(cors());
 app.use(fileUpload());
+
+// let readMe = fs.readFileSync('public/uploads/text1.rtf', 'utf8').split('\n');
+// console.log(readMe);
 
 // Upoad Endpoint
 app.post("/upload", (req, res) => {
@@ -14,6 +19,9 @@ app.post("/upload", (req, res) => {
     }
 
     const file = req.files.file;
+
+    let readMe = fs.readFileSync(`public/uploads/${file.name}`, 'utf8').split('\n');
+    console.log(readMe);
 
     file.mv(`${__dirname}/public/uploads/${file.name}`, err => {
         if (err) {
