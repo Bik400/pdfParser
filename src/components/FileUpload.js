@@ -1,8 +1,8 @@
 import React, {Fragment, useState} from 'react';
 import Message from './Message';
-import Progress from './Progress';
 import axios from "axios";
 import * as XLSX from "xlsx";
+import Card from "./Card";
 
 const FileUpload = () => {
     const [file, setFile] = useState('');
@@ -37,7 +37,7 @@ const FileUpload = () => {
         })
 
         promise.then((data) => {
-            // console.log(data);
+            // console.log(data[1][1]);
             // console.log(fileData);
         })
 
@@ -76,7 +76,10 @@ const FileUpload = () => {
           const {fileName, filePath} = res.data;
 
           setUploadedFile({fileName, filePath});
-          setMessage('File Uploaded');
+          setMessage('File Uploaded Successfully!');
+        //   fileData.map(item => {
+        //     return console.log(item);
+        //   })
         } catch(err) {
             if (err.response.status === 500) {
                 setMessage('There was a problem with the server');
@@ -89,19 +92,31 @@ const FileUpload = () => {
     return (
         <Fragment>
         {message ? <Message msg={message} /> : null}
+        <h1 className="text-center">File Upload</h1>
             <form onSubmit={onSubmit}>
-                <div className="custom-file mb-4">
+                <div className="custom-file mb-4 mt-5 text-center">
                     <input type="file" className="custom-file-input" id="customFile" onChange={onChange}/>
                     <label className='custom-file-label' htmlFor="customFile">{fileName}</label>
                 </div>
-                <Progress percentage={uploadPercentage}/>
-                <input type="submit" value="Upload" className="btn btn-primary btn-block mt-4"/>
+
+                
+                <div className="text-center">
+                    <input type="submit" value="Upload" className="btn btn-primary btn-block mt-4 align-items-center"/>
+                </div>
             </form>
-            {/* <div>{fileData.map(item => {
+            <div>{fileData.map(item => {
                 if (item.length !== 0) {
-                    return console.log(item[2])
+                    {/* return console.log(item[3]) */}
+                    return (<p>{item[2]}</p>)
                 }                
-            })}</div> */}
+            })}</div>
+            {/* {
+                fileData.map(item => {
+                    if (item.length !== 0) {
+                        <Card data={fileData}/>
+                    }
+                })
+            } */}
         </Fragment>
     )
 }
