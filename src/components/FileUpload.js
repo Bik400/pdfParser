@@ -92,7 +92,7 @@ const FileUpload = () => {
     return (
         <Fragment>
         {message ? <Message msg={message} /> : null}
-        <h1 className="text-center">File Upload</h1>
+        <h1 className="text-center">Upload your resume here</h1>
             <form onSubmit={onSubmit}>
                 <div className="custom-file mb-4 mt-5 text-center">
                     <input type="file" className="custom-file-input" id="customFile" onChange={onChange}/>
@@ -107,59 +107,17 @@ const FileUpload = () => {
             <div>{fileData.map(item => {
                 if (item.length !== 0) {
                     {/* return console.log(item[3]) */}
-                    return (<p>{item[2]}</p>)
+                    return (
+                        <div className='row text-center mt-5 border-bottom'>
+                            <div className='col-sm'><p className="p-2">{item[1]}</p></div>
+                            <div className='col-sm'><p className="p-2">{item[2]}</p></div>
+                            <div className='col-sm'><p className="p-2">{item[3]}</p></div>
+                        </div>
+                        )
                 }                
             })}</div>
-            {/* {
-                fileData.map(item => {
-                    if (item.length !== 0) {
-                        <Card data={fileData}/>
-                    }
-                })
-            } */}
         </Fragment>
     )
 }
 
 export default FileUpload
-// import React from "react";
-// import axios from "axios";
-
-// class FileUpload extends React.Component {
-//     constructor() {
-//         super();
-//         this.state = {
-//             selectedFile: "",
-//         }
-
-//         this.handleInputChange = this.handleInputChange.bind(this);
-//     }
-
-//     handleInputChange(event) {
-//         this.setState({
-//             selectedFile: event.target.files[0]
-//         })
-//     }
-
-//     submit() {
-//         const data = new FormData();
-//         data.append("file", this.state.selectedFile);
-//         axios.post("http://localhost:8080/upload/", data)
-//         .then(res => {
-//             console.warn(res);
-//         })
-//         .catch(error => console.log(error));
-//     }
-
-//     render() {
-//         return(
-//             <div>
-//                 <input type="file" onChange={this.handleInputChange}/>
-//                 <button onClick={() => this.submit()}>Upload</button>
-//             </div>
-//         )
-//     }
-// }
-
-// export default FileUpload;
-
